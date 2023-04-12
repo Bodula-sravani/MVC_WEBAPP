@@ -1,0 +1,35 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<Book>
+
+<div class="text-center">
+    <h1 class="display-4">List of Books</h1>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>BOOK TITLE</th>
+            <th>AUTHOR</th>
+            <th>PRICE</th>
+            <th>PUBLICATION</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in ViewBag.booksList)
+        {
+            <tr>
+                <td>@book.Id</td>
+                <td>@book.BookTitle</td>
+                <td>@book.Author</td>
+                <td>@book.Price</td>
+                <td>@book.Publication</td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
