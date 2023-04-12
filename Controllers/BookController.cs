@@ -6,14 +6,18 @@ namespace MVC_web_app.Controllers
 {
     public class BookController : Controller
     {
-        public List<Book> booksList = new List<Book>();
+        List<Book> booksList = new List<Book>();
+
+        IConfiguration configuration;
+        public BookController(IConfiguration configuration) {
+            this.configuration = configuration;
+        }
         public IActionResult BookList()
         {
+            List<Book> booksList = new List<Book>();
             try
             {
-                string connectionString = "Data Source=DESKTOP-8C83AOT;Initial Catalog=LMS_DB;Integrated Security=True;Encrypt=False;";
-
-
+                string connectionString = configuration.GetConnectionString("BooksDB");
                 SqlConnection connection = new SqlConnection(connectionString);
 
                 connection.Open();
@@ -21,7 +25,7 @@ namespace MVC_web_app.Controllers
                 string query = "select BOOK_CODE,BOOK_TITLE,AUTHOR,PRICE,PUBLICATION from LMS_BOOK_DETAILS";
                 SqlCommand command = new SqlCommand(query, connection);
                 var reader = command.ExecuteReader();
-
+                Console.WriteLine("reader");
                 while (reader.Read())
                 {
                     Book book = new Book();
@@ -31,8 +35,9 @@ namespace MVC_web_app.Controllers
                     book.Author = reader.GetString(2);
                     book.Price = reader.GetDouble(3);
                     book.Publication = (string)reader["PUBLICATION"];
-
+                    
                     booksList.Add(book);
+                    Console.WriteLine(book.Id,booksList.Count);
                 }
                 ViewBag.booksList = booksList;
             }
