@@ -1,7 +1,9 @@
 namespace MVC_web_app
 {
+    
     public class Program
     {
+
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,7 @@ namespace MVC_web_app
 
             var app = builder.Build();
 
+            Console.WriteLine(app.Configuration.GetConnectionString("BooksDB"));
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {

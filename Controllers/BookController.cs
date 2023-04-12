@@ -12,8 +12,20 @@ namespace MVC_web_app.Controllers
         public BookController(IConfiguration configuration) {
             this.configuration = configuration;
         }
-        public IActionResult BookList()
+
+        public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
         {
+            // TO check if the code is in development mode or production mode and act accordingly
+            if (env.IsEnvironment("Development"))
+            {
+                // code to be executed in development environment 
+
+            }
+        }
+            public IActionResult BookList()
+        {
+            Console.WriteLine("Env" + configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT"));  
+
             List<Book> booksList = new List<Book>();
             try
             {
